@@ -7,7 +7,12 @@ export const metadata: Metadata = {
   description: "Browse posts by tags",
 };
 
-const Tag = ({ tag, count }: any) => {
+type TagProps = {
+  tag: string;
+  count: number | string;
+};
+
+const Tag = ({ tag, count }: TagProps) => {
   return (
     <Link
       key={tag}

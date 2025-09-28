@@ -1,7 +1,8 @@
 import Link from "next/link";
 import format from "@/app/lib/format";
+import { PostMeta } from "@/app/lib/blog";
 
-export const Posts = ({ posts }: any) => {
+export const Posts = ({ posts }: { posts: PostMeta[] }) => {
   if (posts.length === 0) {
     return (
       <div className="text-center py-12">
@@ -13,7 +14,7 @@ export const Posts = ({ posts }: any) => {
       </div>
     );
   }
-  return posts.map((post) => (
+  return posts.map((post: PostMeta) => (
     <article
       key={post.slug}
       className="border-b border-gray-200 pb-8 last:border-b-0"
@@ -41,7 +42,7 @@ export const Posts = ({ posts }: any) => {
 
         {post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
+            {post.tags.map((tag: string) => (
               <Link
                 prefetch
                 key={tag}

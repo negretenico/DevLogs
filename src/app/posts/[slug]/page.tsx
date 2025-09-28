@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Layout from "@/app/components/Layout";
 import { getAllPostSlugs, getPostBySlug, markdownToHtml } from "@/app/lib/blog";
 import format from "@/app/lib/format";
+import Link from "next/link";
 interface Props {
   params: { slug: string };
 }
@@ -51,12 +52,12 @@ export default async function Post({ params }: Props) {
       <article className="max-w-3xl mx-auto">
         <header className="space-y-6 mb-8">
           <div className="space-y-4">
-            <a
+            <Link
               href="/"
               className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
             >
               ← Back to posts
-            </a>
+            </Link>
 
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
               {post.title}
@@ -78,13 +79,13 @@ export default async function Post({ params }: Props) {
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
-                <a
+                <Link
                   key={tag}
                   href={`/tags/${tag}`}
                   className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full hover:bg-blue-200 transition-colors"
                 >
                   #{tag}
-                </a>
+                </Link>
               ))}
             </div>
           )}
@@ -97,12 +98,12 @@ export default async function Post({ params }: Props) {
 
         <footer className="border-t border-gray-200 mt-12 pt-8">
           <div className="flex justify-between items-center">
-            <a
+            <Link
               href="/"
               className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
             >
               ← Back to posts
-            </a>
+            </Link>
           </div>
         </footer>
       </article>

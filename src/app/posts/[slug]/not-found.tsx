@@ -8,15 +8,14 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
+  const notFound =
+    "The post you're looking for doesn't exist. It may have been moved or deleted.";
   return (
     <Layout>
       <div className="max-w-3xl mx-auto text-center space-y-6">
         <div className="space-y-4">
           <h1 className="text-4xl font-bold text-gray-900">Post Not Found</h1>
-          <p className="text-gray-600 text-lg">
-            The post you're looking for doesn't exist. It may have been moved or
-            deleted.
-          </p>
+          <p className="text-gray-600 text-lg">{notFound}</p>
         </div>
 
         <div className="space-x-4">
