@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <div className="flex flex-col lg:flex-row">
       <Image
-        src={"/thinking.png"}
+        src={"./thinking.png"}
         height={256}
         width={256}
         alt="thinking"
