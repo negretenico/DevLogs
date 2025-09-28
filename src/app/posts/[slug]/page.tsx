@@ -1,12 +1,9 @@
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Layout from "@/app/components/Layout";
 import { getAllPostSlugs, getPostBySlug, markdownToHtml } from "@/app/lib/blog";
 import format from "@/app/lib/format";
 import Link from "next/link";
-interface Props {
-  params: { slug: string };
-}
 
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
@@ -15,8 +12,13 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // Await the params promise
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   return {
     title: post.title,
@@ -38,13 +40,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function Post({ params }: Props) {
+export default async function Post({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  // Await the params promise
+  const { slug } = await params;
+
   let post;
   try {
-    post = getPostBySlug(params.slug);
+    post = getPostBySlug(slug);
   } catch (e) {
     notFound();
   }
+
   const contentHtml = await markdownToHtml(post.content);
 
   return (

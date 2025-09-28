@@ -2,23 +2,10 @@ import type { Metadata } from "next";
 import Layout from "@/app/components/Layout";
 import { PropsWithChildren } from "react";
 import Link from "next/link";
-
+import Header from "@/app/components/Header";
 export const metadata: Metadata = {
   title: "About",
   description: "Learn more about DevLogs and the author",
-};
-
-export const Heading = ({
-  headingText,
-  children,
-}: { headingText: string } & PropsWithChildren) => {
-  return (
-    <div className="">
-      <h2 className="text-2xl font-bold text-gray-800 pb-4">{headingText}</h2>
-      {children}
-      <div className="border-b-2 border-gray-200 my-6"></div>
-    </div>
-  );
 };
 
 export default function About() {
@@ -31,7 +18,7 @@ export default function About() {
           insights, and lessons learned from building software.
         </p>
         <div className="border-b-2 border-gray-200 my-6"></div>
-        <Heading headingText="Technologies used">
+        <Header text="Technologies used">
           <p className="text-gray-600 text-lg">
             This blog is built with
             <Link
@@ -58,8 +45,8 @@ export default function About() {
             </Link>
             whenever new content is pushed.
           </p>
-        </Heading>
-        <Heading headingText="What You'll Find Here">
+        </Header>
+        <Header text="What You'll Find Here">
           <ul className="text-gray-600 text-lg">
             <li>
               <span className="animate-pulse text-green-400">✅</span>{" "}
@@ -78,7 +65,7 @@ export default function About() {
               faster development
             </li>
           </ul>
-        </Heading>
+        </Header>
       </div>
     </Layout>
   );

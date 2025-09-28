@@ -181,7 +181,7 @@ export function getAllTags(): string[] {
 export function getPostsByTag(tag: string): PostMeta[] {
   const posts = getAllPosts();
   const filteredPosts = posts.filter((post) =>
-    post.tags.some((postTag) => postTag.toLowerCase() === tag.toLowerCase())
+    post.tags.some((postTag) => postTag?.toLowerCase() === tag?.toLowerCase())
   );
 
   console.log(`Posts for tag "${tag}":`, filteredPosts.length); // Debug log

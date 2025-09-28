@@ -5,10 +5,6 @@ import { getAllTags, getPostsByTag } from "@/app/lib/blog";
 import { Posts } from "@/app/components/Posts";
 import Header from "@/app/components/Header";
 
-interface Props {
-  params: { tag: string };
-}
-
 export async function generateStaticParams() {
   const tags = getAllTags();
   return tags.map((tag) => ({
@@ -16,8 +12,13 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const posts = getPostsByTag(params.tag);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const posts = getPostsByTag(slug);
 
   if (posts.length === 0) {
     return {
@@ -26,13 +27,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `Posts tagged "${params.tag}"`,
-    description: `All posts tagged with ${params.tag}`,
+    title: `Posts tagged "${slug}"`,
+    description: `All posts tagged with ${slug}`,
   };
 }
 
-export default async function TagPage({ params }: Props) {
-  const posts = getPostsByTag(params.tag);
+export default async function TagPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const posts = getPostsByTag(slug);
 
   if (posts.length === 0) {
     notFound();
@@ -42,7 +48,7 @@ export default async function TagPage({ params }: Props) {
     <Layout>
       <div className="space-y-8 pt-2">
         <div className="space-y-4">
-          <Header text={`Posts tagged "${params.tag}"`}>
+          <Header text={`Posts tagged "${slug}"`}>
             <p className="text-gray-600">
               {posts.length} post{posts.length !== 1 ? "s" : ""}
             </p>
